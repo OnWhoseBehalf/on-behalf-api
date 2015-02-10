@@ -1,0 +1,305 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'node', '/usr/local/bin/npm', 'install' ]
+2 info using npm@2.0.2
+3 info using node@v0.10.32
+4 verbose node symlink /usr/local/bin/node
+5 warn package.json on-behalf-api@ No description
+6 warn package.json on-behalf-api@ No repository field.
+7 warn package.json on-behalf-api@ No README data
+8 verbose readDependencies using package.json deps
+9 verbose install where, deps [ '/Users/jahall/Repos/on-behalf-api',
+9 verbose install   [ 'express',
+9 verbose install     'request',
+9 verbose install     'geocoder',
+9 verbose install     'async',
+9 verbose install     'cached',
+9 verbose install     'merge',
+9 verbose install     'cors' ] ]
+10 info preinstall on-behalf-api@
+11 verbose readDependencies using package.json deps
+12 verbose cache add [ 'express@~3.4.8', null ]
+13 verbose cache add spec="express@~3.4.8" args=["express@~3.4.8",null]
+14 verbose parsed spec { raw: 'express@~3.4.8',
+14 verbose parsed spec   scope: null,
+14 verbose parsed spec   name: 'express',
+14 verbose parsed spec   rawSpec: '~3.4.8',
+14 verbose parsed spec   spec: '>=3.4.8 <3.5.0',
+14 verbose parsed spec   type: 'range' }
+15 verbose cache add [ 'request@*', null ]
+16 verbose cache add spec="request@*" args=["request@*",null]
+17 verbose parsed spec { raw: 'request@*',
+17 verbose parsed spec   scope: null,
+17 verbose parsed spec   name: 'request',
+17 verbose parsed spec   rawSpec: '*',
+17 verbose parsed spec   spec: '*',
+17 verbose parsed spec   type: 'range' }
+18 verbose cache add [ 'geocoder@*', null ]
+19 verbose cache add spec="geocoder@*" args=["geocoder@*",null]
+20 verbose parsed spec { raw: 'geocoder@*',
+20 verbose parsed spec   scope: null,
+20 verbose parsed spec   name: 'geocoder',
+20 verbose parsed spec   rawSpec: '*',
+20 verbose parsed spec   spec: '*',
+20 verbose parsed spec   type: 'range' }
+21 verbose cache add [ 'async@^0.9.0', null ]
+22 verbose cache add spec="async@^0.9.0" args=["async@^0.9.0",null]
+23 verbose parsed spec { raw: 'async@^0.9.0',
+23 verbose parsed spec   scope: null,
+23 verbose parsed spec   name: 'async',
+23 verbose parsed spec   rawSpec: '^0.9.0',
+23 verbose parsed spec   spec: '>=0.9.0 <0.10.0',
+23 verbose parsed spec   type: 'range' }
+24 verbose cache add [ 'cached@3.0.1', null ]
+25 verbose cache add spec="cached@3.0.1" args=["cached@3.0.1",null]
+26 verbose parsed spec { raw: 'cached@3.0.1',
+26 verbose parsed spec   scope: null,
+26 verbose parsed spec   name: 'cached',
+26 verbose parsed spec   rawSpec: '3.0.1',
+26 verbose parsed spec   spec: '3.0.1',
+26 verbose parsed spec   type: 'version' }
+27 verbose cache add [ 'merge@^1.2.0', null ]
+28 verbose cache add spec="merge@^1.2.0" args=["merge@^1.2.0",null]
+29 verbose parsed spec { raw: 'merge@^1.2.0',
+29 verbose parsed spec   scope: null,
+29 verbose parsed spec   name: 'merge',
+29 verbose parsed spec   rawSpec: '^1.2.0',
+29 verbose parsed spec   spec: '>=1.2.0 <2.0.0',
+29 verbose parsed spec   type: 'range' }
+30 verbose cache add [ 'cors@~2.4.2', null ]
+31 verbose cache add spec="cors@~2.4.2" args=["cors@~2.4.2",null]
+32 verbose parsed spec { raw: 'cors@~2.4.2',
+32 verbose parsed spec   scope: null,
+32 verbose parsed spec   name: 'cors',
+32 verbose parsed spec   rawSpec: '~2.4.2',
+32 verbose parsed spec   spec: '>=2.4.2 <2.5.0',
+32 verbose parsed spec   type: 'range' }
+33 verbose parsed spec { raw: 'express@~3.4.8',
+33 verbose parsed spec   scope: null,
+33 verbose parsed spec   name: 'express',
+33 verbose parsed spec   rawSpec: '~3.4.8',
+33 verbose parsed spec   spec: '>=3.4.8 <3.5.0',
+33 verbose parsed spec   type: 'range' }
+34 verbose addNamed [ 'express', '>=3.4.8 <3.5.0' ]
+35 verbose addNamed [ null, '>=3.4.8 <3.5.0' ]
+36 verbose parsed spec { raw: 'request@*',
+36 verbose parsed spec   scope: null,
+36 verbose parsed spec   name: 'request',
+36 verbose parsed spec   rawSpec: '*',
+36 verbose parsed spec   spec: '*',
+36 verbose parsed spec   type: 'range' }
+37 verbose addNamed [ 'request', '*' ]
+38 verbose addNamed [ null, '*' ]
+39 verbose parsed spec { raw: 'geocoder@*',
+39 verbose parsed spec   scope: null,
+39 verbose parsed spec   name: 'geocoder',
+39 verbose parsed spec   rawSpec: '*',
+39 verbose parsed spec   spec: '*',
+39 verbose parsed spec   type: 'range' }
+40 verbose addNamed [ 'geocoder', '*' ]
+41 verbose addNamed [ null, '*' ]
+42 verbose parsed spec { raw: 'async@^0.9.0',
+42 verbose parsed spec   scope: null,
+42 verbose parsed spec   name: 'async',
+42 verbose parsed spec   rawSpec: '^0.9.0',
+42 verbose parsed spec   spec: '>=0.9.0 <0.10.0',
+42 verbose parsed spec   type: 'range' }
+43 verbose addNamed [ 'async', '>=0.9.0 <0.10.0' ]
+44 verbose addNamed [ null, '>=0.9.0 <0.10.0' ]
+45 verbose parsed spec { raw: 'cached@3.0.1',
+45 verbose parsed spec   scope: null,
+45 verbose parsed spec   name: 'cached',
+45 verbose parsed spec   rawSpec: '3.0.1',
+45 verbose parsed spec   spec: '3.0.1',
+45 verbose parsed spec   type: 'version' }
+46 verbose addNamed [ 'cached', '3.0.1' ]
+47 verbose addNamed [ '3.0.1', '3.0.1' ]
+48 verbose parsed spec { raw: 'merge@^1.2.0',
+48 verbose parsed spec   scope: null,
+48 verbose parsed spec   name: 'merge',
+48 verbose parsed spec   rawSpec: '^1.2.0',
+48 verbose parsed spec   spec: '>=1.2.0 <2.0.0',
+48 verbose parsed spec   type: 'range' }
+49 verbose addNamed [ 'merge', '>=1.2.0 <2.0.0' ]
+50 verbose addNamed [ null, '>=1.2.0 <2.0.0' ]
+51 verbose parsed spec { raw: 'cors@~2.4.2',
+51 verbose parsed spec   scope: null,
+51 verbose parsed spec   name: 'cors',
+51 verbose parsed spec   rawSpec: '~2.4.2',
+51 verbose parsed spec   spec: '>=2.4.2 <2.5.0',
+51 verbose parsed spec   type: 'range' }
+52 verbose addNamed [ 'cors', '>=2.4.2 <2.5.0' ]
+53 verbose addNamed [ null, '>=2.4.2 <2.5.0' ]
+54 silly lockFile 69cd2d5d-express-3-4-8-3-5-0 express@>=3.4.8 <3.5.0
+55 verbose lock express@>=3.4.8 <3.5.0 /Users/jahall/.npm/69cd2d5d-express-3-4-8-3-5-0.lock
+56 silly lockFile a4c2c8dc-request request@*
+57 verbose lock request@* /Users/jahall/.npm/a4c2c8dc-request.lock
+58 silly lockFile a6826ee4-geocoder geocoder@*
+59 verbose lock geocoder@* /Users/jahall/.npm/a6826ee4-geocoder.lock
+60 silly lockFile 191746fe-async-0-9-0-0-10-0 async@>=0.9.0 <0.10.0
+61 verbose lock async@>=0.9.0 <0.10.0 /Users/jahall/.npm/191746fe-async-0-9-0-0-10-0.lock
+62 silly lockFile 22a85601-cached-3-0-1 cached@3.0.1
+63 verbose lock cached@3.0.1 /Users/jahall/.npm/22a85601-cached-3-0-1.lock
+64 silly lockFile bf558c0f-merge-1-2-0-2-0-0 merge@>=1.2.0 <2.0.0
+65 verbose lock merge@>=1.2.0 <2.0.0 /Users/jahall/.npm/bf558c0f-merge-1-2-0-2-0-0.lock
+66 silly lockFile faa4717d-cors-2-4-2-2-5-0 cors@>=2.4.2 <2.5.0
+67 verbose lock cors@>=2.4.2 <2.5.0 /Users/jahall/.npm/faa4717d-cors-2-4-2-2-5-0.lock
+68 silly addNameRange { name: 'express', range: '>=3.4.8 <3.5.0', hasData: false }
+69 verbose mapToRegistry name express
+70 verbose mapToRegistry uri http://npm-registry/express
+71 silly addNameRange { name: 'request', range: '*', hasData: false }
+72 verbose mapToRegistry name request
+73 verbose mapToRegistry uri http://npm-registry/request
+74 silly addNameRange { name: 'geocoder', range: '*', hasData: false }
+75 verbose mapToRegistry name geocoder
+76 verbose mapToRegistry uri http://npm-registry/geocoder
+77 silly addNameRange { name: 'async', range: '>=0.9.0 <0.10.0', hasData: false }
+78 verbose mapToRegistry name async
+79 verbose mapToRegistry uri http://npm-registry/async
+80 verbose mapToRegistry name cached
+81 verbose mapToRegistry uri http://npm-registry/cached
+82 silly addNameRange { name: 'merge', range: '>=1.2.0 <2.0.0', hasData: false }
+83 verbose mapToRegistry name merge
+84 verbose mapToRegistry uri http://npm-registry/merge
+85 silly addNameRange { name: 'cors', range: '>=2.4.2 <2.5.0', hasData: false }
+86 verbose mapToRegistry name cors
+87 verbose mapToRegistry uri http://npm-registry/cors
+88 verbose request on initialization, where is /geocoder
+89 verbose request after pass 1, where is /geocoder
+90 verbose request url raw /geocoder
+91 verbose request resolving registry [ 'http://npm-registry/', './geocoder' ]
+92 verbose request after pass 2, where is http://npm-registry/geocoder
+93 verbose request no auth needed
+94 info attempt registry request try #1 at 21:44:55
+95 verbose request id 854b4a65cf938db8
+96 http request GET http://npm-registry/geocoder
+97 verbose request on initialization, where is /request
+98 verbose request after pass 1, where is /request
+99 verbose request url raw /request
+100 verbose request resolving registry [ 'http://npm-registry/', './request' ]
+101 verbose request after pass 2, where is http://npm-registry/request
+102 verbose request no auth needed
+103 info attempt registry request try #1 at 21:44:55
+104 http request GET http://npm-registry/request
+105 verbose request on initialization, where is /async
+106 verbose request after pass 1, where is /async
+107 verbose request url raw /async
+108 verbose request resolving registry [ 'http://npm-registry/', './async' ]
+109 verbose request after pass 2, where is http://npm-registry/async
+110 verbose request no auth needed
+111 info attempt registry request try #1 at 21:44:55
+112 http request GET http://npm-registry/async
+113 verbose request on initialization, where is /express
+114 verbose request after pass 1, where is /express
+115 verbose request url raw /express
+116 verbose request resolving registry [ 'http://npm-registry/', './express' ]
+117 verbose request after pass 2, where is http://npm-registry/express
+118 verbose request no auth needed
+119 info attempt registry request try #1 at 21:44:55
+120 http request GET http://npm-registry/express
+121 verbose request on initialization, where is /cached
+122 verbose request after pass 1, where is /cached
+123 verbose request url raw /cached
+124 verbose request resolving registry [ 'http://npm-registry/', './cached' ]
+125 verbose request after pass 2, where is http://npm-registry/cached
+126 verbose request no auth needed
+127 info attempt registry request try #1 at 21:44:55
+128 http request GET http://npm-registry/cached
+129 verbose request on initialization, where is /merge
+130 verbose request after pass 1, where is /merge
+131 verbose request url raw /merge
+132 verbose request resolving registry [ 'http://npm-registry/', './merge' ]
+133 verbose request after pass 2, where is http://npm-registry/merge
+134 verbose request no auth needed
+135 info attempt registry request try #1 at 21:44:55
+136 http request GET http://npm-registry/merge
+137 verbose request on initialization, where is /cors
+138 verbose request after pass 1, where is /cors
+139 verbose request url raw /cors
+140 verbose request resolving registry [ 'http://npm-registry/', './cors' ]
+141 verbose request after pass 2, where is http://npm-registry/cors
+142 verbose request no auth needed
+143 info attempt registry request try #1 at 21:44:55
+144 http request GET http://npm-registry/cors
+145 info retry will retry, error on last attempt: Error: getaddrinfo ENOTFOUND
+146 info retry will retry, error on last attempt: Error: getaddrinfo ENOTFOUND
+147 info retry will retry, error on last attempt: Error: getaddrinfo ENOTFOUND
+148 info retry will retry, error on last attempt: Error: getaddrinfo ENOTFOUND
+149 info retry will retry, error on last attempt: Error: getaddrinfo ENOTFOUND
+150 info retry will retry, error on last attempt: Error: getaddrinfo ENOTFOUND
+151 info retry will retry, error on last attempt: Error: getaddrinfo ENOTFOUND
+152 info attempt registry request try #2 at 21:45:10
+153 http request GET http://npm-registry/geocoder
+154 info attempt registry request try #2 at 21:45:10
+155 http request GET http://npm-registry/async
+156 info attempt registry request try #2 at 21:45:10
+157 http request GET http://npm-registry/request
+158 info attempt registry request try #2 at 21:45:10
+159 http request GET http://npm-registry/express
+160 info attempt registry request try #2 at 21:45:15
+161 http request GET http://npm-registry/merge
+162 info attempt registry request try #2 at 21:45:15
+163 http request GET http://npm-registry/cors
+164 info attempt registry request try #2 at 21:45:15
+165 http request GET http://npm-registry/cached
+166 info retry will retry, error on last attempt: Error: getaddrinfo ENOTFOUND
+167 info retry will retry, error on last attempt: Error: getaddrinfo ENOTFOUND
+168 info retry will retry, error on last attempt: Error: getaddrinfo ENOTFOUND
+169 info retry will retry, error on last attempt: Error: getaddrinfo ENOTFOUND
+170 info retry will retry, error on last attempt: Error: getaddrinfo ENOTFOUND
+171 info retry will retry, error on last attempt: Error: getaddrinfo ENOTFOUND
+172 info retry will retry, error on last attempt: Error: getaddrinfo ENOTFOUND
+173 info attempt registry request try #3 at 21:46:15
+174 http request GET http://npm-registry/express
+175 info attempt registry request try #3 at 21:46:15
+176 http request GET http://npm-registry/request
+177 info attempt registry request try #3 at 21:46:15
+178 http request GET http://npm-registry/async
+179 info attempt registry request try #3 at 21:46:15
+180 http request GET http://npm-registry/geocoder
+181 info attempt registry request try #3 at 21:46:20
+182 http request GET http://npm-registry/cors
+183 silly registry.get cb [ 304, undefined ]
+184 silly lockFile 191746fe-async-0-9-0-0-10-0 async@>=0.9.0 <0.10.0
+185 silly lockFile 191746fe-async-0-9-0-0-10-0 async@>=0.9.0 <0.10.0
+186 silly registry.get cb [ 304, undefined ]
+187 silly lockFile a6826ee4-geocoder geocoder@*
+188 silly lockFile a6826ee4-geocoder geocoder@*
+189 silly registry.get cb [ 304, undefined ]
+190 silly lockFile 69cd2d5d-express-3-4-8-3-5-0 express@>=3.4.8 <3.5.0
+191 silly lockFile 69cd2d5d-express-3-4-8-3-5-0 express@>=3.4.8 <3.5.0
+192 silly registry.get cb [ 304, undefined ]
+193 silly lockFile a4c2c8dc-request request@*
+194 silly lockFile a4c2c8dc-request request@*
+195 info attempt registry request try #3 at 21:46:20
+196 http request GET http://npm-registry/cached
+197 info attempt registry request try #3 at 21:46:20
+198 http request GET http://npm-registry/merge
+199 silly registry.get cb [ 304, undefined ]
+200 silly lockFile bf558c0f-merge-1-2-0-2-0-0 merge@>=1.2.0 <2.0.0
+201 silly lockFile bf558c0f-merge-1-2-0-2-0-0 merge@>=1.2.0 <2.0.0
+202 silly registry.get cb [ 304, undefined ]
+203 silly lockFile 22a85601-cached-3-0-1 cached@3.0.1
+204 silly lockFile 22a85601-cached-3-0-1 cached@3.0.1
+205 silly registry.get cb [ 304, undefined ]
+206 silly lockFile faa4717d-cors-2-4-2-2-5-0 cors@>=2.4.2 <2.5.0
+207 silly lockFile faa4717d-cors-2-4-2-2-5-0 cors@>=2.4.2 <2.5.0
+208 verbose stack Error: failed to fetch from registry: http://npm-registry/async
+208 verbose stack     at RegClient.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/get.js:159:18)
+208 verbose stack     at f (/usr/local/lib/node_modules/npm/node_modules/once/once.js:16:25)
+208 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:125:10
+208 verbose stack     at f (/usr/local/lib/node_modules/npm/node_modules/once/once.js:16:25)
+208 verbose stack     at RegClient.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:210:20)
+208 verbose stack     at Request._callback (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:189:20)
+208 verbose stack     at self.callback (/usr/local/lib/node_modules/npm/node_modules/request/request.js:237:22)
+208 verbose stack     at Request.emit (events.js:117:20)
+208 verbose stack     at ClientRequest.self.clientErrorHandler (/usr/local/lib/node_modules/npm/node_modules/request/request.js:342:10)
+208 verbose stack     at ClientRequest.emit (events.js:95:17)
+209 verbose cwd /Users/jahall/Repos/on-behalf-api
+210 error Darwin 13.4.0
+211 error argv "node" "/usr/local/bin/npm" "install"
+212 error node v0.10.32
+213 error npm  v2.0.2
+214 error failed to fetch from registry: http://npm-registry/async
+215 error If you need help, you may report this error at:
+215 error     <http://github.com/npm/npm/issues>
+216 verbose exit [ 1, true ]
