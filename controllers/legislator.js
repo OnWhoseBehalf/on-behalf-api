@@ -98,11 +98,19 @@ Legislator.prototype.onGetCoordsForAddress = function (err, data, done){
   this.findByCoods(done);
 };
 
+ACCEPTABLE_REQUEST_DOMAINS = {
+  'localhost': 'http://localhost:4200',
+  'onwhosebehalf.com': 'http://www.onwhosebehalf.com/'
+}
+
 Legislator.prototype.respond = function (response){
 
-  var res = this.res;
+  var res = this.res,
+    host = this.req.host;
 
-  res.setHeader( 'Access-Control-Allow-Origin', 'http://localhost:4200' );
+  domain = ACCEPTABLE_REQUEST_DOMAINS[host];
+
+  res.setHeader('Access-Control-Allow-Origin', domain);
   res.send( JSON.stringify( response ) );
 };
 
