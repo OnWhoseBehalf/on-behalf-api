@@ -20,7 +20,7 @@
     "cors": "~2.4.2"
   },
   "scripts": {
-    "start": "node server.js",
+    "start": "PRODUCTION=true forever server.js",
     "debug": "node debug server.js"
   },
   "engines": {
