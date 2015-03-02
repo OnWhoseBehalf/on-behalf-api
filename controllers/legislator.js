@@ -104,7 +104,7 @@ Legislator.prototype.respond = function (response){
     domain = 'http://localhost:4200';
 
   if(process.env.PRODUCTION){
-    domain = 'http://www.onwhosebehalf.com/'
+    domain = 'http://www.onwhosebehalf.com'
     console.log(domain)
   }
 
