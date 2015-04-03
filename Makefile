@@ -1,6 +1,6 @@
 APP_NAME=grpn-facets
 
-COFFEE=node_modules/.bin/coffee
+NODE=node
 NPM=npm
 FOREVER=forever
 
@@ -17,7 +17,7 @@ install:
 	$(NPM) install
 
 server:
-	$(COFFEE) src/server.coffee -n
+	$(NODE) src/server.js
 
 forever:
-	$(FOREVER) -c coffee src/server.coffee -n
+	$(FOREVER) src/server.js
