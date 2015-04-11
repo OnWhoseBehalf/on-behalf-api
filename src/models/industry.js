@@ -1,32 +1,35 @@
+'use strict';
+
 var Model = require('../models/model'),
   config = require('../../config');
 
-// Constructor
-function Industry(){
-  this.query = {
-    apikey: config.apiKey
-  };
-  this.endpoint = '/contributors/industries.json';
-  this.url = config.urls.transparency + 'aggregates/pol/';
-}
+class Industry extends Model {
 
-Industry.prototype = new Model();
+  constructor() {
+    this.query = {
+      apikey: config.apiKey
+    };
+    this.endpoint = '/contributors/industries.json';
+    this.url = config.urls.transparency + 'aggregates/pol/';
+  }
 
-Industry.prototype.findById = function( query, callback ){
-  this.url += query.id;
-  this.find( query, callback );
-};
+  findById(query, callback) {
+    this.url += query.id;
+    this.find(query, callback);
+  }
 
-Industry.prototype.formatResponse = function( body ){
-  var parsedBody = JSON.parse( body ),
+  formatResponse(body) {
+    var parsedBody = JSON.parse( body ),
 
     results = parsedBody.filter(function(item){
       return item.id != null;
     });
 
-  return {
-    industries: results
-  };
-};
+    return {
+      industries: results
+    };
+
+  }
+}
 
 module.exports = Industry;
