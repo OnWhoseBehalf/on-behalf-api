@@ -1,6 +1,6 @@
 APP_NAME=grpn-facets
 
-NODE=node
+NODE=node --harmony
 NPM=npm
 FOREVER=forever
 
