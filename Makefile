@@ -21,3 +21,6 @@ server:
 
 forever:
 	$(FOREVER) start -c 'iojs' src/server.js
+
+mocha:
+	mocha --harmony

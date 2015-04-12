@@ -1,9 +1,9 @@
 'use strict';
 
-var request =       require('request'),
-  queryString =   require('querystring'),
-  merge =         require('merge'),
-  config =         require('../../config');
+var request = require('request'),
+  queryString = require('querystring'),
+  merge = require('merge'),
+  config = require('../../config');
 
 class Model {
 
