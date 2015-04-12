@@ -1,8 +1,8 @@
 'use strict';
 
-var request =       require('request'),
-  queryString =   require('querystring'),
-  merge =         require('merge');
+var request = require('request'),
+  queryString = require('querystring'),
+  merge = require('merge');
 
 class Model {
 
@@ -59,7 +59,7 @@ class Model {
     responseData[ this.responseKey ] = JSON.parse( body ).results;
     return responseData;
   }
-  
+
 }
 
 module.exports = Model;

@@ -21,3 +21,6 @@ server:
 
 forever:
 	$(FOREVER) src/server.js
+
+mocha:
+	mocha --harmony
