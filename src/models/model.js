@@ -2,7 +2,8 @@
 
 var request =       require('request'),
   queryString =   require('querystring'),
-  merge =         require('merge');
+  merge =         require('merge'),
+  config =         require('../../config');
 
 class Model {
 
@@ -11,13 +12,13 @@ class Model {
     this.responseKey = null;
     this.endpoint = null;
     this.url = null;
-    this.headers = {
-      'content-type': 'application/json; charset=UTF-8',
-      'X-APIKEY': '66603c029b1b49428da28d6a783f795e'
-    };
   }
 
   find(query, callback) {
+    this.headers = {
+      'content-type': 'application/json; charset=UTF-8',
+      'X-APIKEY': config.apiKey
+    };
     this.query = merge(this.query, query);
     this.options = this.createHashOptions.call(this);
     this.makeRequest.call(this, callback);
@@ -30,6 +31,7 @@ class Model {
       method: 'GET',
       headers: this.headers
     };
+
 
     if ( query ) {
       options.url = options.url  + '?' + query;
@@ -59,7 +61,7 @@ class Model {
     responseData[ this.responseKey ] = JSON.parse( body ).results;
     return responseData;
   }
-  
+
 }
 
 module.exports = Model;
