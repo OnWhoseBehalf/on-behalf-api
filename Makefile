@@ -20,4 +20,4 @@ server:
 	$(NODE) src/server.js
 
 forever:
-	$(FOREVER) src/server.js
+	$(FOREVER) start -c 'iojs' src/server.js
