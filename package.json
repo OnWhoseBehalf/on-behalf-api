@@ -20,6 +20,11 @@
     "merge": "^1.2.0",
     "request": "*"
   },
+  "devDependencies": {
+    "expect.js": "^0.3.1",
+    "mocha": "^2.2.4",
+    "sinon": "^1.14.1"
+  },
   "scripts": {
     "start": "PRODUCTION=true forever start server.js",
     "debug": "node debug server.js"
