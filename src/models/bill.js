@@ -25,18 +25,12 @@ class Bill extends Model {
       } else {
           query['history.house_passage_result__exists'] = true;
       }
-      this.find( query, callback );
+      this.find(query, callback);
     }
 
     formatResponse(body) {
       var responseData = {};
       responseData = JSON.parse( body ).results;
-
-      responseData = responseData.filter(function(item) {
-        // `undefined != null` coerces undefined to null
-        return item.bill_id != null;
-      });
-
       return {bills: responseData};
     }
 
