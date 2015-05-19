@@ -8,9 +8,7 @@ On Behalf  API
 ## Memcached
 Install memcached with `brew install memcached`
 
-Then start with `memcached -d` to run as a daemon.
-
-(You can stop it with `memcached -d stop`)
+Then start with `memcached`.
 
 ## NVM and io.js
 Install [NVM](https://github.com/creationix/nvm)
