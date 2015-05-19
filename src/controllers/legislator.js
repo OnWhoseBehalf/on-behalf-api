@@ -145,14 +145,14 @@ Legislator.prototype.getDependencies = function(responseData, callback){
         getEntity: function(callback){
           _this.getEntityId(legislator, callback);
         },
-        getContributors: ['getEntity', function(callback){
+        getContributors: ['getEntity', function(callback) {
           _this.getContributors(legislator, callback);
         }],
-        getIndustries: ['getEntity', function(callback){
+        getIndustries: ['getEntity', function(callback) {
           _this.getIndustries(legislator, callback);
         }],
-        getBills: ['getEntity', function(callback){
-        _this.getVotedBills(legislator, callback);
+        getBills: ['getEntity', function(callback) {
+          _this.getVotedBills(legislator, callback);
         }],
       }, function(err, results) {
         onFinish();
