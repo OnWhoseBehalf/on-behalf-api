@@ -6,6 +6,7 @@ var Model = require('../models/model'),
 class Contributor extends Model {
 
   constructor() {
+    super();
     this.query = {
       apikey: config.apiKey
     };
@@ -29,7 +30,7 @@ class Contributor extends Model {
       contributors: results
     };
   }
-  
+
 }
 
 module.exports = Contributor;
