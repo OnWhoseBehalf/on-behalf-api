@@ -214,8 +214,7 @@ Legislator.prototype.getVotedBills = function (legislator, callback) {
 
     response.bills.map(function(item) {
 
-      item.bill_id += legislator.entityId;
-      legislator.bills.push( item.bill_id );
+      legislator.bills.push(item.bill_id);
     });
     callback();
   });

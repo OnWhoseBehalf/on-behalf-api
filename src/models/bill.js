@@ -5,6 +5,7 @@ var Model = require('../models/model'),
 
 class Bill extends Model {
     constructor() {
+        super();
         this.query = {
           apikey: config.apiKey
         };
