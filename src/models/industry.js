@@ -6,6 +6,7 @@ var Model = require('../models/model'),
 class Industry extends Model {
 
   constructor() {
+    super();
     this.query = {
       apikey: config.apiKey
     };

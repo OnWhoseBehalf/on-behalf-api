@@ -15,13 +15,17 @@ class Model {
   }
 
   find(query, callback) {
+    this.setHeaders();
+    this.query = merge(this.query, query);
+    this.options = this.createHashOptions.call(this);
+    this.makeRequest.call(this, callback);
+  }
+
+  setHeaders() {
     this.headers = {
       'content-type': 'application/json; charset=UTF-8',
       'X-APIKEY': config.apiKey
     };
-    this.query = merge(this.query, query);
-    this.options = this.createHashOptions.call(this);
-    this.makeRequest.call(this, callback);
   }
 
   createHashOptions() {
