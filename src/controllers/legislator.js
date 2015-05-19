@@ -52,7 +52,6 @@ Legislator.prototype.findByCoods = function (done){
   }, function( legislators ){
 
     _this.getDependencies( legislators, function( resBody ){
-      // _this.respond( resBody );
       done(null, resBody)
     });
 
@@ -69,15 +68,13 @@ Legislator.prototype.findByAddress = function (address){
     geocoder.geocode( address, function( err, data ){
       if (!data.results.length) {
         var responseData = {
-            legislators:[]
+          legislators:[]
         };
-        _this.done(null, responseData);
 
-        return;
+        done(null, responseData)
+      } else {
+        _this.onGetCoordsForAddress( err, data, done );
       }
-
-      _this.onGetCoordsForAddress( err, data, done );
-
     });
   });
 

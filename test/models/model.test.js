@@ -20,13 +20,13 @@ describe('models/model.js', function(){
     };
   });
 
-  describe('#constructor', function() {
-    it('initializes with headers', function(){
+  describe('find', function() {
+    it('adds headers', function(){
+      model.find({test: 'hi there'}, noop);
+
       expect(model.headers).to.eql(headers);
     });
-  });
 
-  describe('find', function() {
     it('creates a query', function() {
       model.find({test: 'hi there'}, noop);
 
@@ -43,6 +43,7 @@ describe('models/model.js', function(){
     beforeEach(function () {
       model.url = 'http://localhost/';
       model.endpoint = 'endpoint';
+      model.headers = 'oh hi there!'
       options = model.createHashOptions();
     });
 
@@ -53,7 +54,7 @@ describe('models/model.js', function(){
 
     it('creates headers option', function () {
       expect(options).to.have.key('headers');
-      expect(options.headers).to.eql(headers);
+      expect(options.headers).to.eql('oh hi there!');
     });
   });
 
