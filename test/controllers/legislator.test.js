@@ -4,7 +4,5 @@ var sinon = require('sinon');
 var request = require('request');
 
 describe('controllers/legislator.js', function(){
-  it('sets initial values', function(){
-    expect
-  })
+  it('sets initial values')
 });
