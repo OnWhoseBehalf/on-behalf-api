@@ -7,6 +7,7 @@ var geocoder = require('geocoder'),
 
   LegislatorModel =   require('../models/legislator'),
   ContributorModel =  require('../models/contributor'),
+  BillModel =         require('../models/bill'),
   IndustryModel =     require('../models/industry'),
   EntityModel =       require('../models/entity');
 
@@ -22,6 +23,7 @@ var Legislator = function(req, res){
   this.model = new LegislatorModel();
   this.contributors = [];
   this.industries = [];
+  this.bills = [];
 };
 
 Legislator.prototype.get = function() {
@@ -135,6 +137,7 @@ Legislator.prototype.getDependencies = function(responseData, callback){
 
     legislator.contributors = [];
     legislator.industries = [];
+    legislator.bills = [];
 
     queries.push( function( onFinish ){
 
@@ -142,12 +145,15 @@ Legislator.prototype.getDependencies = function(responseData, callback){
         getEntity: function(callback){
           _this.getEntityId(legislator, callback);
         },
-        getContributors: ['getEntity', function(callback){
+        getContributors: ['getEntity', function(callback) {
           _this.getContributors(legislator, callback);
         }],
-        getIndustries: ['getEntity', function(callback){
+        getIndustries: ['getEntity', function(callback) {
           _this.getIndustries(legislator, callback);
-        }]
+        }],
+        getBills: ['getEntity', function(callback) {
+          _this.getVotedBills(legislator, callback);
+        }],
       }, function(err, results) {
         onFinish();
       });
@@ -157,6 +163,7 @@ Legislator.prototype.getDependencies = function(responseData, callback){
   async.parallel( queries, function(){
     responseData.contributors = _this.contributors;
     responseData.industries = _this.industries;
+    responseData.bills = _this.bills;
     callback( responseData, callback );
   });
 };
@@ -189,6 +196,25 @@ Legislator.prototype.getContributors = function(legislator, callback){
       // combine ids to make it unique
       item.id += legislator.entityId;
       legislator.contributors.push( item.id );
+    });
+    callback();
+  });
+};
+
+Legislator.prototype.getVotedBills = function (legislator, callback) {
+
+  var bill = new BillModel(),
+    _this = this;
+
+  bill.findByChamber({
+    chamber: legislator.chamber,
+  }, function(response) {
+
+    _this.bills = _this.bills.concat( response.bills );
+
+    response.bills.map(function(item) {
+
+      legislator.bills.push(item.bill_id);
     });
     callback();
   });
