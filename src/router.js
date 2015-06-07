@@ -4,12 +4,12 @@ var express = require('express'),
 	http = require('http'),
 	querystring = require('querystring');
 
-var Legislator = 	require('./controllers/legislator');
+var Legislators = 	require('./controllers/legislators');
 
 exports.define = function(app){
 
 	app.get('/api/legislator*', function(req, res){
-		var legislator = new Legislator( req, res );
+		var legislator = new Legislators( req, res );
 		legislator.get();
 	});
 };
