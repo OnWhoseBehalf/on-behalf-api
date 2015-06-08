@@ -103,7 +103,7 @@ module.exports = class Legislators {
     }
 
     res.setHeader('Access-Control-Allow-Origin', domain);
-    res.send( JSON.stringify( response ) );
+    res.json(response);
   }
 
   find() {
