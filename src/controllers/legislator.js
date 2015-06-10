@@ -1,245 +1,97 @@
-// Legislator methods
-var geocoder = require('geocoder'),
-  request = require('request'),
-  querystring = require('querystring'),
-  async = require('async'),
-  cached = require('cached'),
+'use strict';
 
-  LegislatorModel =   require('../models/legislator'),
-  ContributorModel =  require('../models/contributor'),
-  BillModel =         require('../models/bill'),
-  IndustryModel =     require('../models/industry'),
-  EntityModel =       require('../models/entity');
+var async = require('async'),
+  EntityModel = require('../models/entity'),
+  IndustryModel = require('../models/industry'),
+  ContributorModel = require('../models/contributor'),
+  BillModel = require('../models/bill');
 
-cache = cached('zip-map', { backend: {
-  type: 'memcached',
-  hosts: '127.0.0.1:11211',
-}});
+module.exports = class Legislator {
 
-// Constructor
-var Legislator = function(req, res){
-  this.req = req;
-  this.res = res;
-  this.model = new LegislatorModel();
-  this.contributors = [];
-  this.industries = [];
-  this.bills = [];
-};
-
-Legislator.prototype.get = function() {
-  var query = this.req.query;
-  if ( query.address ){
-    this.findByAddress( query.address );
-  } else {
-    this.find({}, function( legislators ){
-
-      _this.getDependencies( legislators, function( resBody ){
-        _this.respond( resBody );
-      });
-
+  getDependencies(legislator, callback){
+    this.legislator = legislator;
+    this.legislator.contributors = [];
+    this.legislator.industries = [];
+    this.legislator.bills = [];
+    async.auto({
+      entityId: this.getEntityId.bind(this),
+      contributors: ['entityId', this.getContributors.bind(this)],
+      industries: ['entityId', this.getIndustries.bind(this)],
+      bills: ['entityId', this.getVotedBills.bind(this)]
+    }, function(err, results) {
+      callback(results);
     });
   }
-};
 
-Legislator.prototype.findByCoods = function (done){
-  var legislator = this.model,
-    req = this.req,
-    _this = this;
+  getEntityId(callback){
+    var entity = new EntityModel();
 
-  legislator.endpoint = 'legislators/locate';
+    entity.findId({
+      bioguide_id: this.legislator.bioguide_id
+    }, function(entityId){
 
-  legislator.find({
-    latitude: req.query.latitude,
-    longitude: req.query.longitude
-  }, function( legislators ){
+      this.legislator.entityId = entityId
+      callback(null, entityId);
 
-    _this.getDependencies( legislators, function( resBody ){
-      done(null, resBody)
-    });
-
-  });
-};
-
-Legislator.prototype.findByAddress = function (address){
-  var _this = this,
-
-  cacheKey = address;
-
-
-  cacheMiss = cached.deferred(function(done) {
-    geocoder.geocode( address, function( err, data ){
-      if (!data.results.length) {
-        var responseData = {
-          legislators:[]
-        };
-
-        done(null, responseData)
-      } else {
-        _this.onGetCoordsForAddress( err, data, done );
-      }
-    });
-  });
-
-  cache.getOrElse(cacheKey, cacheMiss).then(function(data){
-    _this.respond(data);
-  });
-};
-
-Legislator.prototype.onGetCoordsForAddress = function (err, data, done){
-
-  var coords = data.results[0].geometry.location,
-    req = this.req;
-
-  req.query.latitude = coords.lat;
-  req.query.longitude = coords.lng;
-  delete req.query.address;
-
-  this.findByCoods(done);
-};
-
-Legislator.prototype.respond = function (response){
-
-  var res = this.res,
-    domain = 'http://localhost:4200';
-
-  if(process.env.PRODUCTION){
-    domain = 'http://www.onwhosebehalf.com'
-    console.log(domain)
+    }.bind(this));
   }
 
-  res.setHeader('Access-Control-Allow-Origin', domain);
-  res.send( JSON.stringify( response ) );
-};
+  getContributors(callback) {
+    var contributor = new ContributorModel(),
+      _this = this;
 
-Legislator.prototype.find = function (){
+    contributor.findById({
+      id: this.legislator.entityId,
+      limit: 15
+    }, function( response ){
 
-  var legislator = this.model,
-    req = this.req,
-    bioGuideId = req.path.split('/')[3],
-    _this = this;
+      var contributors = response.contributors;
 
-  legislator.find({
-    bioguide_id: bioGuideId
-  }, function( legislators ){
-
-    _this.getDependencies( legislators, function( resBody ){
-      _this.respond( resBody );
-    });
-
-  });
-};
-
-Legislator.prototype.getDependencies = function(responseData, callback){
-  var queries = [],
-    _this = this;
-
-  responseData.legislators.map( function( legislator ){
-
-    legislator.contributors = [];
-    legislator.industries = [];
-    legislator.bills = [];
-
-    queries.push( function( onFinish ){
-
-      async.auto({
-        getEntity: function(callback){
-          _this.getEntityId(legislator, callback);
-        },
-        getContributors: ['getEntity', function(callback) {
-          _this.getContributors(legislator, callback);
-        }],
-        getIndustries: ['getEntity', function(callback) {
-          _this.getIndustries(legislator, callback);
-        }],
-        getBills: ['getEntity', function(callback) {
-          _this.getVotedBills(legislator, callback);
-        }],
-      }, function(err, results) {
-        onFinish();
+      contributors.map( function( item ){
+        item.id += _this.legislator.entityId;
+        _this.legislator.contributors.push( item.id );
       });
+
+      callback(null, contributors);
     });
-  });
+  }
 
-  async.parallel( queries, function(){
-    responseData.contributors = _this.contributors;
-    responseData.industries = _this.industries;
-    responseData.bills = _this.bills;
-    callback( responseData, callback );
-  });
-};
+  getIndustries(callback) {
 
-Legislator.prototype.getEntityId = function(legislator, callback){
+    var industry = new IndustryModel(),
+      _this = this;
 
-  var entity = new EntityModel();
+    industry.findById({
+      id: this.legislator.entityId,
+      cycle: 2012,
+      limit: 15
+    }, function( response ){
 
-  entity.findId({
-    bioguide_id: legislator.bioguide_id
-  }, function( entityId ){
-    legislator.entityId = entityId;
-    callback();
-  });
-};
+      var industries = response.industries;
 
-Legislator.prototype.getContributors = function(legislator, callback){
+      industries.map( function( item ){
+        item.id += _this.legislator.entityId;
+        _this.legislator.industries.push( item.id );
+      });
 
-  var contributor = new ContributorModel(),
-    _this = this;
-
-  contributor.findById({
-    id: legislator.entityId,
-    limit: 15
-  }, function( response ){
-
-    _this.contributors = _this.contributors.concat( response.contributors );
-
-    response.contributors.map( function( item ){
-      // combine ids to make it unique
-      item.id += legislator.entityId;
-      legislator.contributors.push( item.id );
+      callback(null, industries);
     });
-    callback();
-  });
-};
+  }
 
-Legislator.prototype.getVotedBills = function (legislator, callback) {
+  getVotedBills(callback) {
+    var bill = new BillModel(),
+      _this = this;
 
-  var bill = new BillModel(),
-    _this = this;
+    bill.findByChamber({
+      chamber: this.legislator.chamber,
+    }, function(response) {
 
-  bill.findByChamber({
-    chamber: legislator.chamber,
-  }, function(response) {
+      response.bills.map(function(item) {
+        item.id = item.bill_id
+        _this.legislator.bills.push(item.bill_id);
+      });
 
-    _this.bills = _this.bills.concat( response.bills );
-
-    response.bills.map(function(item) {
-
-      legislator.bills.push(item.bill_id);
+      callback(null, response.bills);
     });
-    callback();
-  });
-};
-
-Legislator.prototype.getIndustries = function(legislator, callback){
-
-  var industry = new IndustryModel(),
-    _this = this;
-
-  industry.findById({
-    id: legislator.entityId,
-    cycle: 2012,
-    limit: 15
-  }, function( response ){
-
-    _this.industries = _this.industries.concat( response.industries );
-
-    response.industries.map( function( item ){
-      item.id += legislator.entityId;
-      legislator.industries.push( item.id );
-    });
-    callback();
-  });
-};
-
-
-module.exports = Legislator;
+  };
+}
