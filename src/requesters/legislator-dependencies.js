@@ -6,13 +6,14 @@ var async = require('async'),
   ContributorModel = require('../models/contributor'),
   BillModel = require('../models/bill');
 
-module.exports = class Legislator {
+module.exports = class LegislatorDependencies {
 
-  getDependencies(legislator, callback){
+  get(legislator, callback){
     this.legislator = legislator;
     this.legislator.contributors = [];
     this.legislator.industries = [];
     this.legislator.bills = [];
+
     async.auto({
       entityId: this.getEntityId.bind(this),
       contributors: ['entityId', this.getContributors.bind(this)],
@@ -29,7 +30,6 @@ module.exports = class Legislator {
     entity.findId({
       bioguide_id: this.legislator.bioguide_id
     }, function(entityId){
-
       this.legislator.entityId = entityId
       callback(null, entityId);
 
@@ -63,7 +63,6 @@ module.exports = class Legislator {
 
     industry.findById({
       id: this.legislator.entityId,
-      cycle: 2012,
       limit: 15
     }, function( response ){
 

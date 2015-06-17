@@ -2,12 +2,10 @@
 'use strict';
 
 var geocoder = require('geocoder'),
-  request = require('request'),
-  querystring = require('querystring'),
   async = require('async'),
   cached = require('cached'),
 
-  LegislatorController = require('./legislator'),
+  DependencyRequester = require('../requesters/legislator-dependencies'),
 
   LegislatorModel = require('../models/legislator'),
   ContributorModel = require('../models/contributor'),
@@ -43,48 +41,27 @@ module.exports = class Legislators {
     }
   }
 
-  findByCoods(done){
-    var legislator = this.model,
-      req = this.req;
-
-    legislator.endpoint = 'legislators/locate';
-
-    legislator.find({
-      latitude: req.query.latitude,
-      longitude: req.query.longitude
-    }, function( legislators ){
-      this.getDependencies( legislators, function( resBody ){
-        done(null, resBody)
-      });
-
-    }.bind(this));
-  }
-
   findByAddress (address){
-    var _this = this,
-    cacheKey = address;
+    var cacheKey = address;
 
     var cacheMiss = cached.deferred(function(done) {
       geocoder.geocode( address, function( err, data ){
-        if (!data.results.length) {
-          var responseData = { legislators:[] };
-
-          done(null, responseData)
-        } else {
-          _this.onGetCoordsForAddress( err, data, done );
-        }
-      });
-    });
+        this.onGetCoordsForAddress( err, data, done );
+      }.bind(this));
+    }.bind(this));
 
     cache.getOrElse(cacheKey, cacheMiss).then(function(data){
-      _this.respond(data);
-    });
+      this.respond(data);
+    }.bind(this));
   }
 
   onGetCoordsForAddress(err, data, done) {
-
     var coords = data.results[0].geometry.location,
       req = this.req;
+
+    if (!data.results.length || err) {
+      return done(null, {legislators:[]})
+    }
 
     req.query.latitude = coords.lat;
     req.query.longitude = coords.lng;
@@ -93,32 +70,44 @@ module.exports = class Legislators {
     this.findByCoods(done);
   }
 
+  findByCoods(done){
+    var legislator = this.model,
+      req = this.req;
+
+    legislator.endpoint = 'legislators/locate';
+    legislator.find(req.query, function( legislators ){
+      this.getDependencies( legislators, function( resBody ){
+        done(null, resBody)
+      });
+
+    }.bind(this));
+  }
+
   respond(response){
-
-    var res = this.res,
-      domain = 'http://localhost:4200';
-
-    if(process.env.PRODUCTION){
-      domain = 'http://www.onwhosebehalf.com'
-    }
-
-    res.setHeader('Access-Control-Allow-Origin', domain);
+    var res = this.res;
+    res.setHeader('Access-Control-Allow-Origin', this.getDomain());
     res.json(response);
+  }
+
+  getDomain(){
+    if(process.env.PRODUCTION){
+      return 'http://www.onwhosebehalf.com';
+    } else {
+      return 'http://localhost:4200';
+    }
   }
 
   find() {
     var legislator = this.model,
       req = this.req,
-      bioGuideId = req.path.split('/')[3];
+      query = {bioGuideId: req.path.split('/')[3]}
 
-    legislator.find({
-      bioguide_id: bioGuideId
-    }, this.onFind.bind(this));
+    legislator.find(query, this.onFind.bind(this));
   }
 
   onFind(legislators){
     this.getDependencies( legislators, function( resBody ){
-      this.respond( resBody );
+      this.respond(resBody);
     }.bind(this));
   }
 
@@ -135,9 +124,9 @@ module.exports = class Legislators {
   }
 
   getLegislatorDependencies(legislator, callback) {
-    var legislatorController = new LegislatorController();
+    var dependencyRequester = new DependencyRequester();
 
-    legislatorController.getDependencies(legislator, function(results){
+    dependencyRequester.get(legislator, function(results){
       this.contributors = this.contributors.concat(results.contributors);
       this.industries = this.industries.concat(results.industries);
       this.bills = this.bills.concat(results.bills);
