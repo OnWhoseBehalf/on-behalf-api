@@ -1,11 +1,11 @@
 var express = require('express'),
-	geocoder = require('geocoder'),
-	request = require('request'),
-	http = require('http'),
-	querystring = require('querystring');
+  geocoder = require('geocoder'),
+  request = require('request'),
+  http = require('http'),
+  querystring = require('querystring');
 
 var Legislators =   require('./controllers/legislators');
-var Bills = 	require('./controllers/bills');
+var Bills =   require('./controllers/bills');
 
 exports.define = function(app){
 
@@ -14,8 +14,8 @@ exports.define = function(app){
     legislator.get();
   });
 
-	app.get('/api/bill*', function(req, res){
-		var bill = new Bills( req, res );
-		bill.get();
-	});
+  app.get('/api/bill*', function(req, res){
+    var bill = new Bills( req, res );
+    bill.get();
+  });
 };
